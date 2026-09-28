@@ -1,4 +1,4 @@
-import { NAME } from '../config'
+import { BRAND } from '../config'
 
 export function LogoMark({ className = 'size-8' }: { className?: string }) {
   return (
@@ -22,7 +22,7 @@ export default function Logo() {
   return (
     <a href="#top" className="group flex items-center gap-2.5 font-semibold text-white">
       <LogoMark className="size-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
-      {NAME}
+      {BRAND}
     </a>
   )
 }

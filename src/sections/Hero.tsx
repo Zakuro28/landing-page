@@ -166,9 +166,9 @@ export default function Hero() {
             Taking new projects this month
           </motion.p>
           <BlurText
-            text="A website that brings you customers."
+            text={'I build the website.\nYou get the calls.'}
             delay={d + 0.1}
-            className="display max-w-[12ch] text-[clamp(3rem,7.6vw,6rem)] font-bold"
+            className="display text-[clamp(2.9rem,6.4vw,5.4rem)] font-bold"
           />
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -176,8 +176,8 @@ export default function Hero() {
             transition={{ delay: d + 0.65, duration: 0.8, ease: EASE }}
             className="mt-7 max-w-[46ch] text-lg leading-relaxed text-white/75"
           >
-            I’m Zacc, a web developer. I design and build fast, mobile-friendly websites for small businesses,
-            from a one-page site to a full online store.
+            I’m Zacc, a web developer for small businesses. Fast, mobile-friendly sites, from one page to a full
+            online store, made so the people who find you actually get in touch.
           </motion.p>
 
           <motion.div

@@ -1,4 +1,5 @@
 export const NAME = 'Zacc Bandahala'
+export const BRAND = 'Zacc Websites'
 export const CONTACT_EMAIL = 'zakurofr@gmail.com'
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('New website project')}`
 

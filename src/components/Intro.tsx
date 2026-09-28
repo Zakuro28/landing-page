@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { EASE, SHOW_INTRO } from './motion'
-import { NAME } from '../config'
+import { BRAND } from '../config'
 
 // Logo draws itself, then the curtain lifts to reveal the hero.
 export default function Intro() {
@@ -59,7 +59,7 @@ export default function Intro() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.5, ease: EASE }}
             >
-              {NAME}
+              {BRAND}
             </motion.p>
           </motion.div>
         </motion.div>

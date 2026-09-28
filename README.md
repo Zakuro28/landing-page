@@ -1,4 +1,4 @@
-# Zacc Bandahala · Web developer
+# Zacc Websites
 
 Landing page for my web development services: business websites, landing pages, online stores and ongoing site care.
 

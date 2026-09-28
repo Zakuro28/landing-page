@@ -6,7 +6,7 @@ import BlurText from '../components/reactbits/BlurText'
 import { Reveal, Stagger, item } from '../components/motion'
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from '../components/BrandIcons'
 import { LogoMark } from '../components/Logo'
-import { CONTACT_EMAIL, CONTACT_HREF, NAME, PHONE_DISPLAY, PHONE_HREF, SOCIALS } from '../config'
+import { BRAND, CONTACT_EMAIL, CONTACT_HREF, NAME, PHONE_DISPLAY, PHONE_HREF, SOCIALS } from '../config'
 
 type Icon = ComponentType<SVGProps<SVGSVGElement>>
 
@@ -151,7 +151,7 @@ export default function Cta() {
         </div>
 
         <footer className="relative flex flex-col items-center justify-between gap-4 border-t border-white/10 px-6 py-6 text-sm text-white/55 sm:flex-row sm:px-10">
-          <span>© {new Date().getFullYear()} {NAME} · Web developer</span>
+          <span>© {new Date().getFullYear()} {BRAND} by {NAME}</span>
           <div className="flex items-center gap-2">
             {footerSocials.map((s) => {
               const Icon = s.icon
