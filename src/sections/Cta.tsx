@@ -2,6 +2,8 @@ import { useState, type ComponentType, type SVGProps } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowUp, ArrowUpRight, CalendarCheck, Check, Copy, Mail, Phone } from 'lucide-react'
 import Magnet from '../components/reactbits/Magnet'
+import BlurText from '../components/reactbits/BlurText'
+import { Reveal, Stagger, item } from '../components/motion'
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from '../components/BrandIcons'
 import { LogoMark } from '../components/Logo'
 import { CONTACT_EMAIL, CONTACT_HREF, NAME, PHONE_DISPLAY, PHONE_HREF, SOCIALS } from '../config'
@@ -66,10 +68,9 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 function ChannelTile({ c }: { c: Channel }) {
   const Icon = c.icon
   return (
-    <div
-      className={`group relative flex items-center gap-4 rounded-3xl border border-white/12 bg-white/[0.06] p-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.12] sm:p-5 ${c.span}`}
-    >
-      <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white/10 text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-peach group-hover:text-ink">
+    <motion.div variants={item} className={c.span}>
+    <div className="group relative flex h-full items-center gap-4 rounded-3xl border border-white/12 bg-white/[0.06] p-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.12] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)] sm:p-5">
+      <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white/10 text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-peach group-hover:text-ink">
         <Icon className="size-5" aria-hidden />
       </span>
       <div className="min-w-0 flex-1 text-left">
@@ -89,6 +90,7 @@ function ChannelTile({ c }: { c: Channel }) {
         <ArrowUpRight className="size-5 shrink-0 text-white/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" aria-hidden />
       )}
     </div>
+    </motion.div>
   )
 }
 
@@ -109,29 +111,43 @@ export default function Cta() {
         </div>
 
         <div className="relative mx-auto max-w-5xl px-4 pt-24 pb-16 text-center sm:px-6 sm:pt-32">
-          <LogoMark className="mx-auto size-14" />
-          <h2 className="display mx-auto mt-8 max-w-[13ch] text-[clamp(2.8rem,7vw,5.6rem)] font-bold">Let’s build your website</h2>
-          <p className="mx-auto mt-6 max-w-[44ch] text-lg text-white/75">
-            Tell me about your business on a free 20-minute call. You’ll get a clear quote and timeline afterwards.
-          </p>
-          <div className="mt-10 flex justify-center">
+          <motion.div
+            initial={{ scale: 0, rotate: -30 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 200, damping: 14 }}
+            className="mx-auto w-fit"
+          >
+            <motion.div animate={{ y: [0, -8, 0], rotate: [0, -4, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}>
+              <LogoMark className="size-14 drop-shadow-[0_10px_30px_rgba(155,231,196,0.35)]" />
+            </motion.div>
+          </motion.div>
+          <BlurText as="h2" text="Let’s build your website" className="display mx-auto mt-8 max-w-[13ch] text-[clamp(2.8rem,7vw,5.6rem)] font-bold" />
+          <Reveal delay={0.3}>
+            <p className="mx-auto mt-6 max-w-[44ch] text-lg text-white/75">
+              Tell me about your business on a free 20-minute call. You’ll get a clear quote and timeline afterwards.
+            </p>
+          </Reveal>
+          <Reveal delay={0.45} className="mt-10 flex justify-center">
             <Magnet>
               <a
                 href={CONTACT_HREF}
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 font-semibold text-ink shadow-[0_10px_50px_-10px_rgba(240,195,107,0.7)] transition-transform active:scale-95"
+                className="shine group/cta inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 font-semibold text-ink shadow-[0_10px_50px_-10px_rgba(240,195,107,0.7)] transition-transform active:scale-95"
               >
-                <CalendarCheck className="size-5" aria-hidden />
+                <CalendarCheck className="size-5 transition-transform duration-300 group-hover/cta:-rotate-12" aria-hidden />
                 Start your website
               </a>
             </Magnet>
-          </div>
+          </Reveal>
 
-          <p className="mt-16 text-white/60">Or reach me directly</p>
-          <div className="mt-5 grid gap-3 sm:grid-cols-6">
+          <Reveal delay={0.1}>
+            <p className="mt-16 text-white/60">Or reach me directly</p>
+          </Reveal>
+          <Stagger className="mt-5 grid gap-3 sm:grid-cols-6">
             {channels.map((c) => (
               <ChannelTile key={c.label} c={c} />
             ))}
-          </div>
+          </Stagger>
         </div>
 
         <footer className="relative flex flex-col items-center justify-between gap-4 border-t border-white/10 px-6 py-6 text-sm text-white/55 sm:flex-row sm:px-10">

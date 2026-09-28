@@ -1,5 +1,8 @@
 import { MousePointerClick, ShoppingBag, Store, Wrench, type LucideIcon } from 'lucide-react'
+import { motion } from 'motion/react'
 import SpotlightCard from '../components/reactbits/SpotlightCard'
+import BlurText from '../components/reactbits/BlurText'
+import { Reveal, Stagger, item } from '../components/motion'
 
 type Service = {
   icon: LucideIcon
@@ -53,40 +56,50 @@ export default function Services() {
     <section id="services" className="scroll-mt-24 px-4 py-24 sm:px-6 lg:py-32">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
-          <h2 className="display text-[clamp(2.4rem,5.5vw,4.2rem)] font-bold">Websites I build</h2>
-          <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-muted">
-            Every site is designed from scratch, works on phones first and is set up so customers can find you on Google.
-          </p>
+          <BlurText as="h2" text="Websites I build" className="display text-[clamp(2.4rem,5.5vw,4.2rem)] font-bold" />
+          <Reveal delay={0.2}>
+            <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-muted">
+              Every site is designed from scratch, works on phones first and is set up so customers can find you on Google.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-4 md:grid-cols-5">
+        <Stagger className="mt-14 grid gap-4 md:grid-cols-5">
           {services.map((s) => {
             const Icon = s.icon
             return (
-              <SpotlightCard
-                key={s.title}
-                spotlight={s.spot}
-                className={`rounded-[28px] border border-line bg-card p-7 sm:p-9 ${s.wide ? 'md:col-span-3' : 'md:col-span-2'}`}
-              >
-                <div aria-hidden className={`pointer-events-none absolute -top-24 -right-24 size-64 rounded-full bg-radial ${s.tint} blur-2xl`} />
-                <div className="relative">
-                  <span className="grid size-12 place-items-center rounded-2xl bg-ink text-white">
-                    <Icon className="size-5.5" aria-hidden />
-                  </span>
-                  <h3 className="mt-8 text-2xl font-semibold tracking-tight">{s.title}</h3>
-                  <p className="mt-3 max-w-[48ch] leading-relaxed text-muted">{s.body}</p>
-                  <ul className="mt-6 flex flex-wrap gap-2">
-                    {s.deliverables.map((d) => (
-                      <li key={d} className="rounded-full border border-line bg-paper px-3 py-1 text-sm text-ink-soft">
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </SpotlightCard>
+              <motion.div key={s.title} variants={item} className={s.wide ? 'md:col-span-3' : 'md:col-span-2'}>
+                <SpotlightCard
+                  spotlight={s.spot}
+                  className="group h-full rounded-[28px] border border-line bg-card p-7 transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1.5 hover:border-peri/30 hover:shadow-[0_30px_60px_-30px_rgba(11,42,30,0.35)] sm:p-9"
+                >
+                  <div
+                    aria-hidden
+                    className={`pointer-events-none absolute -top-24 -right-24 size-64 rounded-full bg-radial ${s.tint} blur-2xl transition-transform duration-700 group-hover:scale-150`}
+                  />
+                  <div className="relative">
+                    <span className="grid size-12 place-items-center rounded-2xl bg-ink text-white transition-all duration-500 group-hover:-rotate-8 group-hover:scale-110 group-hover:bg-peri">
+                      <Icon className="size-5.5" aria-hidden />
+                    </span>
+                    <h3 className="mt-8 text-2xl font-semibold tracking-tight">{s.title}</h3>
+                    <p className="mt-3 max-w-[48ch] leading-relaxed text-muted">{s.body}</p>
+                    <ul className="mt-6 flex flex-wrap gap-2">
+                      {s.deliverables.map((d, i) => (
+                        <li
+                          key={d}
+                          style={{ transitionDelay: `${i * 40}ms` }}
+                          className="rounded-full border border-line bg-paper px-3 py-1 text-sm text-ink-soft transition-colors duration-300 group-hover:border-peri/25 group-hover:bg-white"
+                        >
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </SpotlightCard>
+              </motion.div>
             )
           })}
-        </div>
+        </Stagger>
       </div>
     </section>
   )

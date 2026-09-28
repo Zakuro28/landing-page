@@ -18,8 +18,8 @@
   --color-mint: #9be7c4;
 }
 
+/* Smooth scrolling comes from Lenis (see App.tsx) */
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -109,11 +109,37 @@ body {
 @keyframes drift-b { to { transform: translate3d(-10vmax, 8vmax, 0) scale(0.92); } }
 @keyframes drift-c { to { transform: translate3d(-6vmax, -8vmax, 0) scale(1.12); } }
 
+/* Light sweep across primary buttons: every few seconds, and on hover */
+.shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 35%, rgba(155, 231, 196, 0.55) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: shine 4.5s ease-in-out infinite;
+}
+.shine:hover::after {
+  animation: shine-once 0.8s ease-out;
+}
+@keyframes shine {
+  0%, 70% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+@keyframes shine-once {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
 /* Blinking cursor dot in the logo */
 .logo-cursor { animation: blink 1.1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .aura__blob, .logo-cursor { animation: none; }
+  .aura__blob, .logo-cursor, .shine::after { animation: none; }
 }

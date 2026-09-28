@@ -1,5 +1,6 @@
 // Adapted from React Bits "BlurText" (reactbits.dev, MIT)
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
+import { EASE } from '../motion'
 
 type Props = {
   text: string
@@ -10,7 +11,6 @@ type Props = {
 }
 
 export default function BlurText({ text, className, delay = 0, stagger = 0.08, as = 'h1' }: Props) {
-  const reduce = useReducedMotion()
   const Tag = motion[as]
   const words = text.split(' ')
 
@@ -21,9 +21,10 @@ export default function BlurText({ text, className, delay = 0, stagger = 0.08, a
           key={i}
           aria-hidden
           className="inline-block will-change-[filter,transform]"
-          initial={reduce ? false : { filter: 'blur(12px)', opacity: 0, y: 24 }}
-          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: delay + i * stagger, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ filter: 'blur(12px)', opacity: 0, y: 28 }}
+          whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+          transition={{ duration: 0.8, delay: delay + i * stagger, ease: EASE }}
         >
           {word}
           {i < words.length - 1 && ' '}
