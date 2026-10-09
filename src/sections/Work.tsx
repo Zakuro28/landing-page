@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'motion/react'
-import { ArrowDownRight, Check, X } from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight, Check, X } from 'lucide-react'
 import BlurText from '../components/reactbits/BlurText'
 import { EASE, Reveal } from '../components/motion'
 
@@ -143,6 +143,25 @@ export default function Work() {
             <Comparison key={c.title} c={c} />
           ))}
         </div>
+
+        {/* Latest personal build */}
+        <Reveal delay={0.1}>
+          <a
+            href="https://github.com/Zakuro28/glyph"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[32px] border border-line bg-card px-7 py-6 transition-colors hover:border-ink/25 sm:px-10"
+          >
+            <span>
+              <span className="text-sm font-semibold text-muted">Latest build</span>
+              <span className="mt-1 block text-2xl font-semibold tracking-tight">Glyph</span>
+              <span className="mt-1 block max-w-[52ch] text-ink-soft">Four daily word games with timers and a public leaderboard.</span>
+            </span>
+            <span className="flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 font-semibold text-white transition-transform duration-300 group-hover:-translate-y-0.5">
+              View on GitHub <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+            </span>
+          </a>
+        </Reveal>
       </div>
     </section>
   )
